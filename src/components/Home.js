@@ -907,7 +907,7 @@ export default class Home extends Component {
         super(props)
 
         this.state = {
-            InputText: null,
+            InputText: "",
             targetLanguageCode: null,
             targetLanguageName: null,
             source_languageName: "Auto Detect",
@@ -924,7 +924,7 @@ export default class Home extends Component {
 
 
     translateLanguage = async () => {
-        if (this.state.InputText !== null) {
+        if (this.state.InputText !== "") {
             if (this.state.targetLanguageCode !== null) {
                 this.setState({ isLoading: true })
                 const url = 'https://text-translator2.p.rapidapi.com/translate';
@@ -983,6 +983,11 @@ export default class Home extends Component {
     }
     targetLanguage = (name, code) => {
         this.setState({ targetLanguageName: name, targetLanguageCode: code })
+    }
+
+    exchangevalue = () => {
+        document.getElementById("inputt").value = this.state.translateResult
+        this.setState({ translateResult: this.state.InputText, InputText: this.state.translateResult})
     }
 
 
@@ -1062,6 +1067,16 @@ export default class Home extends Component {
                         }
                     </div>
 
+
+                    <div className="lrarrow">
+                        <i class="fa-solid fa-arrows-left-right " onClick={this.exchangevalue}></i>
+                    </div>
+                    <div className="udarrow">
+                        <i class="fa-solid fa-arrows-up-down" onClick={this.exchangevalue}></i>
+                    </div>
+
+
+
                     <div className="sourceSelect">
                         <div className="buttonContainer">
                             <div className="dropdown">
@@ -1084,7 +1099,7 @@ export default class Home extends Component {
 
 
                         </div>
-                        <textarea onChange={(event) => { this.setState({ InputText: event.target.value }) }} placeholder='Type your text here..' cols="30" rows="10"></textarea>
+                        <textarea id='inputt' onChange={(event) => { this.setState({ InputText: event.target.value }) }} placeholder='Type your text here..' cols="30" rows="10"></textarea>
                     </div>
 
                 </div>

@@ -54,6 +54,27 @@ body {
         width: 150px;
         background-color: rgb(255, 0, 0, 0.5);
     }
+
+    .udarrow {
+        display: none;
+    }
+
+    .lrarrow {
+        font-size: x-large;
+
+    }
+
+    .fa-arrows-left-right {
+        font-size: x-large;
+        border-radius: 50%;
+        padding: 5px;
+        cursor: pointer;
+    }
+
+    .fa-arrows-left-right:active {
+        background-color: white;
+        color: black;
+    }
 }
 
 @media screen and (max-width:600px) {
@@ -98,6 +119,24 @@ body {
         width: 150px;
         background-color: rgb(255, 0, 0, 0.5);
     }
+
+    .lrarrow {
+        display: none;
+    }
+
+    .fa-arrows-up-down {
+        font-size: xx-large;
+        border-radius: 50%;
+        padding: 5px;
+        padding-right: 10px;
+        padding-left: 10px;
+    }
+
+    .fa-arrows-up-down:active {
+        background-color: white;
+        color: black;
+    }
+
 }
 
 #sign {
@@ -165,7 +204,8 @@ textarea {
     text-align: center;
     margin-top: 20px;
 }
-.load{
+
+.load {
     display: flex;
     justify-content: space-evenly;
     align-items: center;

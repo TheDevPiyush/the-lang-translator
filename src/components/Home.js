@@ -1,264 +1,1115 @@
 
 import React, { Component } from 'react'
+import './Home.css'
 
 
-const languageData = [
-    { "code": "ab", "name": "Abkhaz", "nativeName": "аҧсуа" },
-    { "code": "aa", "name": "Afar", "nativeName": "Afaraf" },
-    { "code": "af", "name": "Afrikaans", "nativeName": "Afrikaans" },
-    { "code": "ak", "name": "Akan", "nativeName": "Akan" },
-    { "code": "sq", "name": "Albanian", "nativeName": "Shqip" },
-    { "code": "am", "name": "Amharic", "nativeName": "አማርኛ" },
-    { "code": "ar", "name": "Arabic", "nativeName": "العربية" },
-    { "code": "an", "name": "Aragonese", "nativeName": "Aragonés" },
-    { "code": "hy", "name": "Armenian", "nativeName": "Հայերեն" },
-    { "code": "as", "name": "Assamese", "nativeName": "অসমীয়া" },
-    { "code": "av", "name": "Avaric", "nativeName": "авар мацӀ, магӀарул мацӀ" },
-    { "code": "ae", "name": "Avestan", "nativeName": "avesta" },
-    { "code": "ay", "name": "Aymara", "nativeName": "aymar aru" },
-    { "code": "az", "name": "Azerbaijani", "nativeName": "azərbaycan dili" },
-    { "code": "bm", "name": "Bambara", "nativeName": "bamanankan" },
-    { "code": "ba", "name": "Bashkir", "nativeName": "башҡорт теле" },
-    { "code": "eu", "name": "Basque", "nativeName": "euskara, euskera" },
-    { "code": "be", "name": "Belarusian", "nativeName": "Беларуская" },
-    { "code": "bn", "name": "Bengali", "nativeName": "বাংলা" },
-    { "code": "bh", "name": "Bihari", "nativeName": "भोजपुरी" },
-    { "code": "bi", "name": "Bislama", "nativeName": "Bislama" },
-    { "code": "bs", "name": "Bosnian", "nativeName": "bosanski jezik" },
-    { "code": "br", "name": "Breton", "nativeName": "brezhoneg" },
-    { "code": "bg", "name": "Bulgarian", "nativeName": "български език" },
-    { "code": "my", "name": "Burmese", "nativeName": "ဗမာစာ" },
-    { "code": "ca", "name": "Catalan; Valencian", "nativeName": "Català" },
-    { "code": "ch", "name": "Chamorro", "nativeName": "Chamoru" },
-    { "code": "ce", "name": "Chechen", "nativeName": "нохчийн мотт" },
-    { "code": "ny", "name": "Chichewa; Chewa; Nyanja", "nativeName": "chiCheŵa, chinyanja" },
-    { "code": "zh", "name": "Chinese", "nativeName": "中文 (Zhōngwén), 汉语, 漢語" },
-    { "code": "cv", "name": "Chuvash", "nativeName": "чӑваш чӗлхи" },
-    { "code": "kw", "name": "Cornish", "nativeName": "Kernewek" },
-    { "code": "co", "name": "Corsican", "nativeName": "corsu, lingua corsa" },
-    { "code": "cr", "name": "Cree", "nativeName": "ᓀᐦᐃᔭᐍᐏᐣ" },
-    { "code": "hr", "name": "Croatian", "nativeName": "hrvatski" },
-    { "code": "cs", "name": "Czech", "nativeName": "česky, čeština" },
-    { "code": "da", "name": "Danish", "nativeName": "dansk" },
-    { "code": "dv", "name": "Divehi; Dhivehi; Maldivian;", "nativeName": "ދިވެހި" },
-    { "code": "nl", "name": "Dutch", "nativeName": "Nederlands, Vlaams" },
-    { "code": "en", "name": "English", "nativeName": "English" },
-    { "code": "eo", "name": "Esperanto", "nativeName": "Esperanto" },
-    { "code": "et", "name": "Estonian", "nativeName": "eesti, eesti keel" },
-    { "code": "ee", "name": "Ewe", "nativeName": "Eʋegbe" },
-    { "code": "fo", "name": "Faroese", "nativeName": "føroyskt" },
-    { "code": "fj", "name": "Fijian", "nativeName": "vosa Vakaviti" },
-    { "code": "fi", "name": "Finnish", "nativeName": "suomi, suomen kieli" },
-    { "code": "fr", "name": "French", "nativeName": "français, langue française" },
-    { "code": "ff", "name": "Fula; Fulah; Pulaar; Pular", "nativeName": "Fulfulde, Pulaar, Pular" },
-    { "code": "gl", "name": "Galician", "nativeName": "Galego" },
-    { "code": "ka", "name": "Georgian", "nativeName": "ქართული" },
-    { "code": "de", "name": "German", "nativeName": "Deutsch" },
-    { "code": "el", "name": "Greek, Modern", "nativeName": "Ελληνικά" },
-    { "code": "gn", "name": "Guaraní", "nativeName": "Avañeẽ" },
-    { "code": "gu", "name": "Gujarati", "nativeName": "ગુજરાતી" },
-    { "code": "ht", "name": "Haitian; Haitian Creole", "nativeName": "Kreyòl ayisyen" },
-    { "code": "ha", "name": "Hausa", "nativeName": "Hausa, هَوُسَ" },
-    { "code": "he", "name": "Hebrew (modern)", "nativeName": "עברית" },
-    { "code": "hz", "name": "Herero", "nativeName": "Otjiherero" },
-    { "code": "hi", "name": "Hindi", "nativeName": "हिन्दी, हिंदी" },
-    { "code": "ho", "name": "Hiri Motu", "nativeName": "Hiri Motu" },
-    { "code": "hu", "name": "Hungarian", "nativeName": "Magyar" },
-    { "code": "ia", "name": "Interlingua", "nativeName": "Interlingua" },
-    { "code": "id", "name": "Indonesian", "nativeName": "Bahasa Indonesia" },
-    { "code": "ie", "name": "Interlingue", "nativeName": "Originally called Occidental; then Interlingue after WWII" },
-    { "code": "ga", "name": "Irish", "nativeName": "Gaeilge" },
-    { "code": "ig", "name": "Igbo", "nativeName": "Asụsụ Igbo" },
-    { "code": "ik", "name": "Inupiaq", "nativeName": "Iñupiaq, Iñupiatun" },
-    { "code": "io", "name": "Ido", "nativeName": "Ido" },
-    { "code": "is", "name": "Icelandic", "nativeName": "Íslenska" },
-    { "code": "it", "name": "Italian", "nativeName": "Italiano" },
-    { "code": "iu", "name": "Inuktitut", "nativeName": "ᐃᓄᒃᑎᑐᑦ" },
-    { "code": "ja", "name": "Japanese", "nativeName": "日本語 (にほんご／にっぽんご)" },
-    { "code": "jv", "name": "Javanese", "nativeName": "basa Jawa" },
-    { "code": "kl", "name": "Kalaallisut, Greenlandic", "nativeName": "kalaallisut, kalaallit oqaasii" },
-    { "code": "kn", "name": "Kannada", "nativeName": "ಕನ್ನಡ" },
-    { "code": "kr", "name": "Kanuri", "nativeName": "Kanuri" },
-    { "code": "ks", "name": "Kashmiri", "nativeName": "कश्मीरी, كشميري‎" },
-    { "code": "kk", "name": "Kazakh", "nativeName": "Қазақ тілі" },
-    { "code": "km", "name": "Khmer", "nativeName": "ភាសាខ្មែរ" },
-    { "code": "ki", "name": "Kikuyu, Gikuyu", "nativeName": "Gĩkũyũ" },
-    { "code": "rw", "name": "Kinyarwanda", "nativeName": "Ikinyarwanda" },
-    { "code": "ky", "name": "Kirghiz, Kyrgyz", "nativeName": "кыргыз тили" },
-    { "code": "kv", "name": "Komi", "nativeName": "коми кыв" },
-    { "code": "kg", "name": "Kongo", "nativeName": "KiKongo" },
-    { "code": "ko", "name": "Korean", "nativeName": "한국어 (韓國語), 조선말 (朝鮮語)" },
-    { "code": "ku", "name": "Kurdish", "nativeName": "Kurdî, كوردی‎" },
-    { "code": "kj", "name": "Kwanyama, Kuanyama", "nativeName": "Kuanyama" },
-    { "code": "la", "name": "Latin", "nativeName": "latine, lingua latina" },
-    { "code": "lb", "name": "Luxembourgish, Letzeburgesch", "nativeName": "Lëtzebuergesch" },
-    { "code": "lg", "name": "Luganda", "nativeName": "Luganda" },
-    { "code": "li", "name": "Limburgish, Limburgan, Limburger", "nativeName": "Limburgs" },
-    { "code": "ln", "name": "Lingala", "nativeName": "Lingála" },
-    { "code": "lo", "name": "Lao", "nativeName": "ພາສາລາວ" },
-    { "code": "lt", "name": "Lithuanian", "nativeName": "lietuvių kalba" },
-    { "code": "lu", "name": "Luba-Katanga", "nativeName": "" },
-    { "code": "lv", "name": "Latvian", "nativeName": "latviešu valoda" },
-    { "code": "gv", "name": "Manx", "nativeName": "Gaelg, Gailck" },
-    { "code": "mk", "name": "Macedonian", "nativeName": "македонски јазик" },
-    { "code": "mg", "name": "Malagasy", "nativeName": "Malagasy fiteny" },
-    { "code": "ms", "name": "Malay", "nativeName": "bahasa Melayu, بهاس ملايو‎" },
-    { "code": "ml", "name": "Malayalam", "nativeName": "മലയാളം" },
-    { "code": "mt", "name": "Maltese", "nativeName": "Malti" },
-    { "code": "mi", "name": "Māori", "nativeName": "te reo Māori" },
-    { "code": "mr", "name": "Marathi (Marāṭhī)", "nativeName": "मराठी" },
-    { "code": "mh", "name": "Marshallese", "nativeName": "Kajin M̧ajeļ" },
-    { "code": "mn", "name": "Mongolian", "nativeName": "монгол" },
-    { "code": "na", "name": "Nauru", "nativeName": "Ekakairũ Naoero" },
-    { "code": "nv", "name": "Navajo, Navaho", "nativeName": "Diné bizaad, Dinékʼehǰí" },
-    { "code": "nb", "name": "Norwegian Bokmål", "nativeName": "Norsk bokmål" },
-    { "code": "nd", "name": "North Ndebele", "nativeName": "isiNdebele" },
-    { "code": "ne", "name": "Nepali", "nativeName": "नेपाली" },
-    { "code": "ng", "name": "Ndonga", "nativeName": "Owambo" },
-    { "code": "nn", "name": "Norwegian Nynorsk", "nativeName": "Norsk nynorsk" },
-    { "code": "no", "name": "Norwegian", "nativeName": "Norsk" },
-    { "code": "ii", "name": "Nuosu", "nativeName": "ꆈꌠ꒿ Nuosuhxop" },
-    { "code": "nr", "name": "South Ndebele", "nativeName": "isiNdebele" },
-    { "code": "oc", "name": "Occitan", "nativeName": "Occitan" },
-    { "code": "oj", "name": "Ojibwe, Ojibwa", "nativeName": "ᐊᓂᔑᓈᐯᒧᐎᓐ" },
-    { "code": "cu", "name": "Old Church Slavonic, Church Slavic, Church Slavonic, Old Bulgarian, Old Slavonic", "nativeName": "ѩзыкъ словѣньскъ" },
-    { "code": "om", "name": "Oromo", "nativeName": "Afaan Oromoo" },
-    { "code": "or", "name": "Oriya", "nativeName": "ଓଡ଼ିଆ" },
-    { "code": "os", "name": "Ossetian, Ossetic", "nativeName": "ирон æвзаг" },
-    { "code": "pa", "name": "Panjabi, Punjabi", "nativeName": "ਪੰਜਾਬੀ, پنجابی‎" },
-    { "code": "pi", "name": "Pāli", "nativeName": "पाऴि" },
-    { "code": "fa", "name": "Persian", "nativeName": "فارسی" },
-    { "code": "pl", "name": "Polish", "nativeName": "polski" },
-    { "code": "ps", "name": "Pashto, Pushto", "nativeName": "پښتو" },
-    { "code": "pt", "name": "Portuguese", "nativeName": "Português" },
-    { "code": "qu", "name": "Quechua", "nativeName": "Runa Simi, Kichwa" },
-    { "code": "rm", "name": "Romansh", "nativeName": "rumantsch grischun" },
-    { "code": "rn", "name": "Kirundi", "nativeName": "kiRundi" }
+
+const languageDataFrom = [
+    {
+        "code": "",
+        "name": "Auto Detect"
+    },
+    {
+        "code": "af",
+        "name": "Afrikaans"
+    },
+    {
+        "code": "sq",
+        "name": "Albanian"
+    },
+    {
+        "code": "am",
+        "name": "Amharic"
+    },
+    {
+        "code": "ar",
+        "name": "Arabic"
+    },
+    {
+        "code": "hy",
+        "name": "Armenian"
+    },
+    {
+        "code": "az",
+        "name": "Azerbaijani"
+    },
+    {
+        "code": "eu",
+        "name": "Basque"
+    },
+    {
+        "code": "be",
+        "name": "Belarusian"
+    },
+    {
+        "code": "bn",
+        "name": "Bengali"
+    },
+    {
+        "code": "bs",
+        "name": "Bosnian"
+    },
+    {
+        "code": "bg",
+        "name": "Bulgarian"
+    },
+    {
+        "code": "ca",
+        "name": "Catalan"
+    },
+    {
+        "code": "ceb",
+        "name": "Cebuano"
+    },
+    {
+        "code": "ny",
+        "name": "Chichewa"
+    },
+    {
+        "code": "zh-CN",
+        "name": "Chinese (Simplified)"
+    },
+    {
+        "code": "zh-TW",
+        "name": "Chinese (Traditional)"
+    },
+    {
+        "code": "co",
+        "name": "Corsican"
+    },
+    {
+        "code": "hr",
+        "name": "Croatian"
+    },
+    {
+        "code": "cs",
+        "name": "Czech"
+    },
+    {
+        "code": "da",
+        "name": "Danish"
+    },
+    {
+        "code": "nl",
+        "name": "Dutch"
+    },
+    {
+        "code": "en",
+        "name": "English"
+    },
+    {
+        "code": "eo",
+        "name": "Esperanto"
+    },
+    {
+        "code": "et",
+        "name": "Estonian"
+    },
+    {
+        "code": "tl",
+        "name": "Filipino"
+    },
+    {
+        "code": "fi",
+        "name": "Finnish"
+    },
+    {
+        "code": "fr",
+        "name": "French"
+    },
+    {
+        "code": "fy",
+        "name": "Frisian"
+    },
+    {
+        "code": "gl",
+        "name": "Galician"
+    },
+    {
+        "code": "ka",
+        "name": "Georgian"
+    },
+    {
+        "code": "de",
+        "name": "German"
+    },
+    {
+        "code": "el",
+        "name": "Greek"
+    },
+    {
+        "code": "gu",
+        "name": "Gujarati"
+    },
+    {
+        "code": "ht",
+        "name": "Haitian Creole"
+    },
+    {
+        "code": "ha",
+        "name": "Hausa"
+    },
+    {
+        "code": "haw",
+        "name": "Hawaiian"
+    },
+    {
+        "code": "iw",
+        "name": "Hebrew"
+    },
+    {
+        "code": "hi",
+        "name": "Hindi"
+    },
+    {
+        "code": "hmn",
+        "name": "Hmong"
+    },
+    {
+        "code": "hu",
+        "name": "Hungarian"
+    },
+    {
+        "code": "is",
+        "name": "Icelandic"
+    },
+    {
+        "code": "ig",
+        "name": "Igbo"
+    },
+    {
+        "code": "id",
+        "name": "Indonesian"
+    },
+    {
+        "code": "ga",
+        "name": "Irish"
+    },
+    {
+        "code": "it",
+        "name": "Italian"
+    },
+    {
+        "code": "ja",
+        "name": "Japanese"
+    },
+    {
+        "code": "jw",
+        "name": "Javanese"
+    },
+    {
+        "code": "kn",
+        "name": "Kannada"
+    },
+    {
+        "code": "kk",
+        "name": "Kazakh"
+    },
+    {
+        "code": "km",
+        "name": "Khmer"
+    },
+    {
+        "code": "rw",
+        "name": "Kinyarwanda"
+    },
+    {
+        "code": "ko",
+        "name": "Korean"
+    },
+    {
+        "code": "ku",
+        "name": "Kurdish (Kurmanji)"
+    },
+    {
+        "code": "ky",
+        "name": "Kyrgyz"
+    },
+    {
+        "code": "lo",
+        "name": "Lao"
+    },
+    {
+        "code": "la",
+        "name": "Latin"
+    },
+    {
+        "code": "lv",
+        "name": "Latvian"
+    },
+    {
+        "code": "lt",
+        "name": "Lithuanian"
+    },
+    {
+        "code": "lb",
+        "name": "Luxembourgish"
+    },
+    {
+        "code": "mk",
+        "name": "Macedonian"
+    },
+    {
+        "code": "mg",
+        "name": "Malagasy"
+    },
+    {
+        "code": "ms",
+        "name": "Malay"
+    },
+    {
+        "code": "ml",
+        "name": "Malayalam"
+    },
+    {
+        "code": "mt",
+        "name": "Maltese"
+    },
+    {
+        "code": "mi",
+        "name": "Maori"
+    },
+    {
+        "code": "mr",
+        "name": "Marathi"
+    },
+    {
+        "code": "mn",
+        "name": "Mongolian"
+    },
+    {
+        "code": "my",
+        "name": "Myanmar (Burmese)"
+    },
+    {
+        "code": "ne",
+        "name": "Nepali"
+    },
+    {
+        "code": "no",
+        "name": "Norwegian"
+    },
+    {
+        "code": "or",
+        "name": "Odia (Oriya)"
+    },
+    {
+        "code": "ps",
+        "name": "Pashto"
+    },
+    {
+        "code": "fa",
+        "name": "Persian"
+    },
+    {
+        "code": "pl",
+        "name": "Polish"
+    },
+    {
+        "code": "pt",
+        "name": "Portuguese"
+    },
+    {
+        "code": "pa",
+        "name": "Punjabi"
+    },
+    {
+        "code": "ro",
+        "name": "Romanian"
+    },
+    {
+        "code": "ru",
+        "name": "Russian"
+    },
+    {
+        "code": "sm",
+        "name": "Samoan"
+    },
+    {
+        "code": "gd",
+        "name": "Scots Gaelic"
+    },
+    {
+        "code": "sr",
+        "name": "Serbian"
+    },
+    {
+        "code": "st",
+        "name": "Sesotho"
+    },
+    {
+        "code": "sn",
+        "name": "Shona"
+    },
+    {
+        "code": "sd",
+        "name": "Sindhi"
+    },
+    {
+        "code": "si",
+        "name": "Sinhala"
+    },
+    {
+        "code": "sk",
+        "name": "Slovak"
+    },
+    {
+        "code": "sl",
+        "name": "Slovenian"
+    },
+    {
+        "code": "so",
+        "name": "Somali"
+    },
+    {
+        "code": "es",
+        "name": "Spanish"
+    },
+    {
+        "code": "su",
+        "name": "Sundanese"
+    },
+    {
+        "code": "sw",
+        "name": "Swahili"
+    },
+    {
+        "code": "sv",
+        "name": "Swedish"
+    },
+    {
+        "code": "tg",
+        "name": "Tajik"
+    },
+    {
+        "code": "ta",
+        "name": "Tamil"
+    },
+    {
+        "code": "tt",
+        "name": "Tatar"
+    },
+    {
+        "code": "te",
+        "name": "Telugu"
+    },
+    {
+        "code": "th",
+        "name": "Thai"
+    },
+    {
+        "code": "tr",
+        "name": "Turkish"
+    },
+    {
+        "code": "tk",
+        "name": "Turkmen"
+    },
+    {
+        "code": "uk",
+        "name": "Ukrainian"
+    },
+    {
+        "code": "ur",
+        "name": "Urdu"
+    },
+    {
+        "code": "ug",
+        "name": "Uyghur"
+    },
+    {
+        "code": "uz",
+        "name": "Uzbek"
+    },
+    {
+        "code": "vi",
+        "name": "Vietnamese"
+    },
+    {
+        "code": "cy",
+        "name": "Welsh"
+    },
+    {
+        "code": "xh",
+        "name": "Xhosa"
+    },
+    {
+        "code": "yi",
+        "name": "Yiddish"
+    },
+    {
+        "code": "yo",
+        "name": "Yoruba"
+    },
+    {
+        "code": "zu",
+        "name": "Zulu"
+    },
+    {
+        "code": "he",
+        "name": "Hebrew"
+    },
+    {
+        "code": "zh",
+        "name": "Chinese (Simplified)"
+    }
 ]
+const languageDataTo = [
+    {
+        "code": "af",
+        "name": "Afrikaans"
+    },
+    {
+        "code": "sq",
+        "name": "Albanian"
+    },
+    {
+        "code": "am",
+        "name": "Amharic"
+    },
+    {
+        "code": "ar",
+        "name": "Arabic"
+    },
+    {
+        "code": "hy",
+        "name": "Armenian"
+    },
+    {
+        "code": "az",
+        "name": "Azerbaijani"
+    },
+    {
+        "code": "eu",
+        "name": "Basque"
+    },
+    {
+        "code": "be",
+        "name": "Belarusian"
+    },
+    {
+        "code": "bn",
+        "name": "Bengali"
+    },
+    {
+        "code": "bs",
+        "name": "Bosnian"
+    },
+    {
+        "code": "bg",
+        "name": "Bulgarian"
+    },
+    {
+        "code": "ca",
+        "name": "Catalan"
+    },
+    {
+        "code": "ceb",
+        "name": "Cebuano"
+    },
+    {
+        "code": "ny",
+        "name": "Chichewa"
+    },
+    {
+        "code": "zh-CN",
+        "name": "Chinese (Simplified)"
+    },
+    {
+        "code": "zh-TW",
+        "name": "Chinese (Traditional)"
+    },
+    {
+        "code": "co",
+        "name": "Corsican"
+    },
+    {
+        "code": "hr",
+        "name": "Croatian"
+    },
+    {
+        "code": "cs",
+        "name": "Czech"
+    },
+    {
+        "code": "da",
+        "name": "Danish"
+    },
+    {
+        "code": "nl",
+        "name": "Dutch"
+    },
+    {
+        "code": "en",
+        "name": "English"
+    },
+    {
+        "code": "eo",
+        "name": "Esperanto"
+    },
+    {
+        "code": "et",
+        "name": "Estonian"
+    },
+    {
+        "code": "tl",
+        "name": "Filipino"
+    },
+    {
+        "code": "fi",
+        "name": "Finnish"
+    },
+    {
+        "code": "fr",
+        "name": "French"
+    },
+    {
+        "code": "fy",
+        "name": "Frisian"
+    },
+    {
+        "code": "gl",
+        "name": "Galician"
+    },
+    {
+        "code": "ka",
+        "name": "Georgian"
+    },
+    {
+        "code": "de",
+        "name": "German"
+    },
+    {
+        "code": "el",
+        "name": "Greek"
+    },
+    {
+        "code": "gu",
+        "name": "Gujarati"
+    },
+    {
+        "code": "ht",
+        "name": "Haitian Creole"
+    },
+    {
+        "code": "ha",
+        "name": "Hausa"
+    },
+    {
+        "code": "haw",
+        "name": "Hawaiian"
+    },
+    {
+        "code": "iw",
+        "name": "Hebrew"
+    },
+    {
+        "code": "hi",
+        "name": "Hindi"
+    },
+    {
+        "code": "hmn",
+        "name": "Hmong"
+    },
+    {
+        "code": "hu",
+        "name": "Hungarian"
+    },
+    {
+        "code": "is",
+        "name": "Icelandic"
+    },
+    {
+        "code": "ig",
+        "name": "Igbo"
+    },
+    {
+        "code": "id",
+        "name": "Indonesian"
+    },
+    {
+        "code": "ga",
+        "name": "Irish"
+    },
+    {
+        "code": "it",
+        "name": "Italian"
+    },
+    {
+        "code": "ja",
+        "name": "Japanese"
+    },
+    {
+        "code": "jw",
+        "name": "Javanese"
+    },
+    {
+        "code": "kn",
+        "name": "Kannada"
+    },
+    {
+        "code": "kk",
+        "name": "Kazakh"
+    },
+    {
+        "code": "km",
+        "name": "Khmer"
+    },
+    {
+        "code": "rw",
+        "name": "Kinyarwanda"
+    },
+    {
+        "code": "ko",
+        "name": "Korean"
+    },
+    {
+        "code": "ku",
+        "name": "Kurdish (Kurmanji)"
+    },
+    {
+        "code": "ky",
+        "name": "Kyrgyz"
+    },
+    {
+        "code": "lo",
+        "name": "Lao"
+    },
+    {
+        "code": "la",
+        "name": "Latin"
+    },
+    {
+        "code": "lv",
+        "name": "Latvian"
+    },
+    {
+        "code": "lt",
+        "name": "Lithuanian"
+    },
+    {
+        "code": "lb",
+        "name": "Luxembourgish"
+    },
+    {
+        "code": "mk",
+        "name": "Macedonian"
+    },
+    {
+        "code": "mg",
+        "name": "Malagasy"
+    },
+    {
+        "code": "ms",
+        "name": "Malay"
+    },
+    {
+        "code": "ml",
+        "name": "Malayalam"
+    },
+    {
+        "code": "mt",
+        "name": "Maltese"
+    },
+    {
+        "code": "mi",
+        "name": "Maori"
+    },
+    {
+        "code": "mr",
+        "name": "Marathi"
+    },
+    {
+        "code": "mn",
+        "name": "Mongolian"
+    },
+    {
+        "code": "my",
+        "name": "Myanmar (Burmese)"
+    },
+    {
+        "code": "ne",
+        "name": "Nepali"
+    },
+    {
+        "code": "no",
+        "name": "Norwegian"
+    },
+    {
+        "code": "or",
+        "name": "Odia (Oriya)"
+    },
+    {
+        "code": "ps",
+        "name": "Pashto"
+    },
+    {
+        "code": "fa",
+        "name": "Persian"
+    },
+    {
+        "code": "pl",
+        "name": "Polish"
+    },
+    {
+        "code": "pt",
+        "name": "Portuguese"
+    },
+    {
+        "code": "pa",
+        "name": "Punjabi"
+    },
+    {
+        "code": "ro",
+        "name": "Romanian"
+    },
+    {
+        "code": "ru",
+        "name": "Russian"
+    },
+    {
+        "code": "sm",
+        "name": "Samoan"
+    },
+    {
+        "code": "gd",
+        "name": "Scots Gaelic"
+    },
+    {
+        "code": "sr",
+        "name": "Serbian"
+    },
+    {
+        "code": "st",
+        "name": "Sesotho"
+    },
+    {
+        "code": "sn",
+        "name": "Shona"
+    },
+    {
+        "code": "sd",
+        "name": "Sindhi"
+    },
+    {
+        "code": "si",
+        "name": "Sinhala"
+    },
+    {
+        "code": "sk",
+        "name": "Slovak"
+    },
+    {
+        "code": "sl",
+        "name": "Slovenian"
+    },
+    {
+        "code": "so",
+        "name": "Somali"
+    },
+    {
+        "code": "es",
+        "name": "Spanish"
+    },
+    {
+        "code": "su",
+        "name": "Sundanese"
+    },
+    {
+        "code": "sw",
+        "name": "Swahili"
+    },
+    {
+        "code": "sv",
+        "name": "Swedish"
+    },
+    {
+        "code": "tg",
+        "name": "Tajik"
+    },
+    {
+        "code": "ta",
+        "name": "Tamil"
+    },
+    {
+        "code": "tt",
+        "name": "Tatar"
+    },
+    {
+        "code": "te",
+        "name": "Telugu"
+    },
+    {
+        "code": "th",
+        "name": "Thai"
+    },
+    {
+        "code": "tr",
+        "name": "Turkish"
+    },
+    {
+        "code": "tk",
+        "name": "Turkmen"
+    },
+    {
+        "code": "uk",
+        "name": "Ukrainian"
+    },
+    {
+        "code": "ur",
+        "name": "Urdu"
+    },
+    {
+        "code": "ug",
+        "name": "Uyghur"
+    },
+    {
+        "code": "uz",
+        "name": "Uzbek"
+    },
+    {
+        "code": "vi",
+        "name": "Vietnamese"
+    },
+    {
+        "code": "cy",
+        "name": "Welsh"
+    },
+    {
+        "code": "xh",
+        "name": "Xhosa"
+    },
+    {
+        "code": "yi",
+        "name": "Yiddish"
+    },
+    {
+        "code": "yo",
+        "name": "Yoruba"
+    },
+    {
+        "code": "zu",
+        "name": "Zulu"
+    },
+    {
+        "code": "he",
+        "name": "Hebrew"
+    },
+    {
+        "code": "zh",
+        "name": "Chinese (Simplified)"
+    }
+]
+
+
 export default class Home extends Component {
     constructor(props) {
         super(props)
 
         this.state = {
             InputText: null,
-
             targetLanguageCode: null,
             targetLanguageName: null,
-            source_languageName: null,
-            source_languageCode: null,
-            translateResult: null
+            source_languageName: "Auto Detect",
+            source_languageCode: "",
+            translateResult: null,
+            openTargetList: false,
+            openSourceList: false,
+            isLoading: false,
+            inputEmpty: false,
+            istargetlang: false,
+            errormessage: false
         }
-    }
-    componentDidMount() {
-        // this.detectLanguage();
-        // this.getArrayLanguages();
-        // this.translateLanguage();
     }
 
 
     translateLanguage = async () => {
-        const url = 'https://text-translator2.p.rapidapi.com/translate';
-        const options = {
-            method: 'POST',
-            headers: {
-                'content-type': 'application/x-www-form-urlencoded',
-                'X-RapidAPI-Key': 'ccbbb9265fmsh23310fd9f46a253p1c2e41jsn6a15149f6366',
-                'X-RapidAPI-Host': 'text-translator2.p.rapidapi.com'
-            },
-            body: new URLSearchParams({
-                source_languageCode: 'en',
-                target_language: this.state.targetLanguageCode,
-                text: this.state.InputText
-            })
-        };
+        if (this.state.InputText !== null) {
+            if (this.state.targetLanguageCode !== null) {
+                this.setState({ isLoading: true })
+                const url = 'https://text-translator2.p.rapidapi.com/translate';
+                const options = {
+                    method: 'POST',
+                    headers: {
+                        'content-type': 'application/x-www-form-urlencoded',
+                        'X-RapidAPI-Key': 'ccbbb9265fmsh23310fd9f46a253p1c2e41jsn6a15149f6366',
+                        'X-RapidAPI-Host': 'text-translator2.p.rapidapi.com'
+                    },
+                    body: new URLSearchParams({
+                        source_languageCode: this.state.source_languageCode,
+                        target_language: this.state.targetLanguageCode,
+                        text: this.state.InputText
+                    })
+                };
 
-        try {
-            const response = await fetch(url, options);
-            const result = await response.json();
-            this.setState({ translateResult: result.data.translatedText })
-            console.log(result.data.translatedText);
-        } catch (error) {
-            console.error(error);
+                try {
+                    const response = await fetch(url, options);
+                    const result = await response.json();
+                    this.setState({ translateResult: result.data.translatedText, isLoading: false })
+                } catch (error) {
+                    this.setState({
+                        isLoading: false,
+                        errormessage: true
+                    })
+                    setTimeout(() => {
+                        this.setState({ errormessage: false })
+
+                    }, 6000);
+                }
+
+            }
+
+            else {
+                this.setState({ istargetlang: true })
+                setTimeout(() => {
+                    this.setState({ istargetlang: false })
+
+                }, 3000);
+            }
         }
+        else {
+            this.setState({ inputEmpty: true })
+            setTimeout(() => {
+                this.setState({ inputEmpty: false })
+
+            }, 2000);
+        }
+
+
     }
+
+    sourceLanguage = (name, code) => {
+        this.setState({ source_languageName: name, source_languageCode: code })
+    }
+    targetLanguage = (name, code) => {
+        this.setState({ targetLanguageName: name, targetLanguageCode: code })
+    }
+
+
     render() {
         return (
             <div className='super' style={{ 'height': "100vh" }}>
 
-                <div className="some container text-center w-100">
-                    <h2>
-                        <strong>
-                            <u>
-                                All available languages in the app.
-                            </u>
-
-                        </strong>
-
-                    </h2>
-                </div>
-                <div className="parent" style={{ "width": "100vw", "display": "flex", "alignItems": "baseline", "position": "relative" }}>
-
-                    <div className="container" style={{ "height": "50vh" }}>
-                        <h3>Select Source Language - {this.state.source_languageName}</h3>
-                        <div className="sub" style={{ "height": "100%", "overflowY": "scroll" }}>
-
-                            {languageData.map((items) => (
-                                <div className="main bg-primary text-light fs-5" key={items.code}
-                                    onClick={() => {
-                                        this.setState({ source_languageCode: items.code, source_languageName: items.name })
-                                        setTimeout(() => {
-                                            console.log("Source Language", this.state.source_languageCode)
-                                        }, 500);
-                                    }}>
-
-                                    <ul>
-                                        <li style={{ "cursor": "pointer" }}>
-                                            {items.name}
-                                        </li>
-                                    </ul>
-                                </div>
-                            ))}
+                <div className="headin">
+                    <div className="some">
+                        <div className="heading">
+                            Welcome to Lang-Translator
+                            <div id='sign'>
+                                <u>
+                                    TheDevPiyush <a href="mailto:contactpiyushhere@gmail.com">
+                                        <i style={{ "cursor": "pointer" }} className="fa-solid fa-envelope mx-3 fs-3" ></i>
+                                    </a>
+                                </u>
+                            </div>
                         </div>
                     </div>
+                </div>
 
-                    <div className="container" style={{ "height": "50vh" }}>
-                        <h3>Select Target Language - {this.state.targetLanguageName}</h3>
-                        <div className="sub" style={{ "height": "100%", "overflowY": "scroll" }}>
-                            {languageData.map((items) => (
-                                <div className="main bg-success text-light fs-5" key={items.code}
-                                    onClick={() => {
-                                        this.setState({ targetLanguageCode: items.code, targetLanguageName: items.name })
-                                        setTimeout(() => {
-                                            console.log("Target Language", this.state.targetLanguageCode)
-                                        }, 500);
-                                    }}>
+                <div className="errorparent" id='emptywarning'>
+                    {this.state.inputEmpty &&
 
-                                    <ul>
-                                        <li style={{ "cursor": "pointer" }}>
-                                            {items.name}
+                        <div className="alert alert-warning text-center my-2 container border border-success border-2" role="alert">
+                            <strong>
+                                Input can not be empty!
+                            </strong>
+                        </div>}
+                    {this.state.istargetlang &&
+
+                        <div className="alert alert-info text-center my-2 container border border-success border-2" role="alert">
+                            <strong>
+                                Provide a target language to translate into.
+                            </strong>
+                        </div>}
+                    {this.state.errormessage &&
+
+                        <div className="alert alert-danger fs-6 text-center my-2 container border border-success border-2" role="alert">
+                            <strong>
+                                The translation couldn't complete. There might be some server issues.
+                            </strong>
+                        </div>}
+                </div>
+
+                <div className="languages">
+
+                    <div className="targetselect">
+                        <div className="buttonContainer">
+                            <div className="dropdown">
+                                <button className="btn btn-outline-success border border-success border-2 fw-bold mx-2 dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false"> <i className="fa fa-opencart" aria-hidden="true"></i>
+                                    Translate To - {this.state.targetLanguageName}
+                                </button>
+                                <ul className="dropdown-menu bg-dark" style={{ "width": "100%" }}>
+                                    {languageDataTo.map((items) => (
+
+                                        <li key={items.code} >
+                                            <a className="dropdown-item text-light custom" href='/#' onClick={() => { this.targetLanguage(items.name, items.code) }}>
+                                                {items.name}
+                                            </a>
                                         </li>
-                                    </ul>
-                                </div>
-                            ))}
+                                    ))
+                                    }
+                                </ul>
+
+                            </div>
                         </div>
+
+                        {this.state.translateResult === null ?
+                            <div className="notice">Your translations will appear here..</div>
+                            :
+                            <div className="result">
+                                {this.state.translateResult}
+                            </div>
+
+                        }
+                    </div>
+
+                    <div className="sourceSelect">
+                        <div className="buttonContainer">
+                            <div className="dropdown">
+                                <button className="btn btn-outline-primary border border-primary border-2 fw-bold dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false"> <i className="fa fa-opencart" aria-hidden="true"></i>
+                                    Transte From - {this.state.source_languageName}
+                                </button>
+                                <ul className="dropdown-menu bg-dark " style={{ "width": "100%" }}>
+                                    {languageDataFrom.map((items) => (
+
+                                        <li key={items.code}>
+                                            <a className="dropdown-item text-light custom" href='/#' onClick={() => { this.sourceLanguage(items.name, items.code) }}>
+                                                {items.name}
+                                            </a>
+                                        </li>
+                                    ))
+                                    }
+                                </ul>
+
+                            </div>
+
+
+                        </div>
+                        <textarea onChange={(event) => { this.setState({ InputText: event.target.value }) }} placeholder='Type your text here..' cols="30" rows="10"></textarea>
                     </div>
 
                 </div>
-                <div className="mainInput" style={{ "position": "relative", "marginTop": "100px" }}>
+                <div className="enterbox">
+                    <button type="button" className="btn border border-light border-2 btn-dark fw-bold text-white" disabled={this.state.isLoading} onClick={this.translateLanguage}>
+                        <a href="#emptywarning" className='text-white'>
+                            {this.state.isLoading ?
+                                <div className="load">
+                                    <div className="texttt mx-2">
+                                        Translating
+                                    </div>
+                                    <div className="spinner-border mx-2 text-white" role="status">
+                                    </div>
+                                </div>
+                                :
 
-                    <div className="fw-bold text-center fs-3">Enter your text</div>
-                    <div className="input-group container text-center input-group-lg">
-                        <input onChange={(e) => { this.setState({ InputText: e.target.value }) }} type="text" className="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg" />
-                        <div className='btn btn-primary' onClick={this.translateLanguage} >Enter</div>
-                    </div>
-
-                    <div className="container  fw-bold my-5">
-                        <h2>
-                            {this.state.translateResult}
-                        </h2>
-                    </div>
+                                <div className="texttt  px-2 py-2">
+                                    Translate
+                                </div>
+                            }
+                        </a>
+                    </button>
                 </div>
-            </div>
+
+            </div >
         )
     }
 }

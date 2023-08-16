@@ -1,10 +1,7 @@
-# Getting Started with Create React App
+# About The Project
+This project was made by [TheDevPiyush](https://thedevpiyush.web.app),
+the-lang-translator can translate into almost 110 languages, It uses an API from Rapid API service for backend translation, and Vanilla HTML/CSS as well as a bit of Bootstrap Components was used in UI/UX designs.
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
-
-## Available Scripts
-
-In the project directory, you can run:
 
 ### `npm start`
 

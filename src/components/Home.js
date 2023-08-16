@@ -986,8 +986,18 @@ export default class Home extends Component {
     }
 
     exchangevalue = () => {
-        document.getElementById("inputt").value = this.state.translateResult
-        this.setState({ translateResult: this.state.InputText, InputText: this.state.translateResult})
+        if (this.state.InputText !== "") {
+
+            document.getElementById("inputt").value = this.state.translateResult
+            this.setState({ translateResult: this.state.InputText, InputText: this.state.translateResult })
+        }
+        else {
+            this.setState({ inputEmpty: true })
+        }
+        setTimeout(() => {
+            this.setState({ inputEmpty: false })
+
+        }, 2000);
     }
 
 
@@ -1022,7 +1032,7 @@ export default class Home extends Component {
 
                         <div className="alert alert-info text-center my-2 container border border-success border-2" role="alert">
                             <strong>
-                                Provide a target language to translate into.
+                                Provide a 'Target Language' to translate into.
                             </strong>
                         </div>}
                     {this.state.errormessage &&
@@ -1069,10 +1079,14 @@ export default class Home extends Component {
 
 
                     <div className="lrarrow">
-                        <i class="fa-solid fa-arrows-left-right " onClick={this.exchangevalue}></i>
+                        <a href="#emptywarning" className='text-white'>
+                            <i class="fa-solid fa-arrows-left-right " onClick={this.exchangevalue}></i>
+                        </a>
                     </div>
-                    <div className="udarrow">
-                        <i class="fa-solid fa-arrows-up-down" onClick={this.exchangevalue}></i>
+                    <div className="udarrow" >
+                        <a href="#emptywarning" className='text-white'>
+                            <i class="fa-solid fa-arrows-up-down" onClick={this.exchangevalue}></i>
+                        </a>
                     </div>
 
 
